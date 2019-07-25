@@ -2,12 +2,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "floatbot_iOS_sdk"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "Integrates floatbot with the iOS app."
   s.description  = <<-DESC
 Integrates floatbot with the iOS app.
                    DESC
-s.swift_version = "4.1"
   s.homepage     = "http://github.com/FloatbotAI/floatbot_iOS_sdk"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Jhanvi" => "jhanvi.it@gmail.com" }
