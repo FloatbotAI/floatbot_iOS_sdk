@@ -86,16 +86,38 @@ Upload your development / production certificate in Settings page.
 
 To enable floatbot to send push notifications to the application, add this implementation of - application:didRegisterForRemoteNotificationsWithDeviceToken: in your AppDelegate file that captures the device token and sends it to floatbot server
 
-Add below snippet in -[AppDelegate application:didFinishLaunchingWithOptions:] method 
+Add below snippet in Appdelegate.swift file
 ```ruby
-if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-[[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-[[UIApplication sharedApplication] registerForRemoteNotifications];
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+// Override point for customization after application launch.
+
+let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+
+return true
 }
-else{
-[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+...
+
+application.registerUserNotificationSettings(pushNotificationSettings)
+application.registerForRemoteNotifications()
+
+return true
 }
+
+func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+print("DEVICE TOKEN = \(deviceToken)")
+}
+
+func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+print(error)
+}
+
+func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+print(userInfo)
+}
+
 ```
 
 ## Get in touch
